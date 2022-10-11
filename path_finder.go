@@ -263,11 +263,9 @@ func (f *BasePathFinder) UpdateExistList(m NavigationMap, col int, row int, pare
 			exist.UpdateParent(parent, vecParent)
 			exist.SetMinGValue(minGValue, m)
 		}
-
-		return true
 	}
 
-	return false
+	return ok
 }
 
 func (f *BasePathFinder) popMinValueNode(m NavigationMap, dstGrid *Grid) (PathNode, bool) {
@@ -311,15 +309,13 @@ func (f *BasePathFinder) getFullPath() ([]PathNode, bool) {
 	fullPath := make([]PathNode, 0)
 	node := f.lastNode
 	for {
-		// grid := node.GetGrid()
-		fullPath = append(fullPath, node)
-
-		parent := node.GetParent()
-		if parent == nil {
+		if node == nil {
 			break
 		}
 
-		node = parent
+		// grid := node.GetGrid()
+		fullPath = append(fullPath, node)
+		node = node.GetParent()
 	}
 
 	// reverse
